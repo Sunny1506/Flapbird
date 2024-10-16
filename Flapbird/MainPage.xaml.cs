@@ -2,12 +2,17 @@
 
 public partial class MainPage : ContentPage
 {
-	const int gravidade = 1;
+	const int gravidade = 5;
+	const int aberturaMinima = 200;
 	const int tempoEntreFrames = 25;
 	bool estaMorto = false;
 	double larguraJanela = 0;
 	double AlturaJanela = 0;
-	int velocidade = 20;
+	int velocidade = 10;
+	const int ForcaPulo = 30;
+	const int MaximoTempoPulando = 3; //frames
+	bool EstaPulando = false;
+	int TempoPulando = 0;
 
 	public MainPage()
 	{
@@ -21,7 +26,10 @@ public partial class MainPage : ContentPage
 	{
 		while (!estaMorto)
 		{
-			AplicaGravidade();
+			if (EstaPulando)
+				AplicaPulo();
+			else
+				AplicaGravidade();
 			GerenciaCanos();
 			if (VerificaColisao())
 			{
@@ -31,6 +39,20 @@ public partial class MainPage : ContentPage
 			}
 			await Task.Delay(tempoEntreFrames);
 		}
+	}
+	void AplicaPulo()
+	{
+		Passaro.TranslationY -= ForcaPulo;
+		TempoPulando++;
+		if (TempoPulando >= MaximoTempoPulando)
+		{
+			EstaPulando = false;
+			TempoPulando = 0;
+		}
+	}
+	void OnGridClicked(object s, TappedEventArgs a)
+	{
+		EstaPulando = true;
 	}
 
 	void Oi(object s, TappedEventArgs e)
@@ -62,7 +84,14 @@ public partial class MainPage : ContentPage
 		{
 			imgcanobaixo.TranslationX = 4;
 			imgcanocima.TranslationX = 4;
+
+			var alturaMax = -100;
+			var alturaMin = -imgcanobaixo.HeightRequest;
+			imgcanocima.TranslationY = Random.Shared.Next((int)alturaMin, (int)alturaMax);
+			imgcanobaixo.TranslationY = imgcanocima.TranslationY + aberturaMinima + imgcanobaixo.HeightRequest;
 		}
+
+
 	}
 	bool VerificaColisao()
 	{
@@ -79,7 +108,7 @@ public partial class MainPage : ContentPage
 	}
 	bool VerificaColisaoTeto()
 	{
-		var minY = AlturaJanela / 2;
+		var minY = -AlturaJanela / 2;
 		if (Passaro.TranslationY <= minY)
 			return true;
 		else
