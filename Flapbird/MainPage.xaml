@@ -13,14 +13,19 @@
                      Aspect="AspectFill"
                      HorizontalOptions="Fill"
                      VerticalOptions="Fill"/>
-              <Image Source="canocima.jpg"
+              <Label Text="Canos:001"
+                     x:Name="LabelScore"
+                     HorizontalOptions="End"
+                     VerticalOptions="Start"
+                     Margin="10,10,10,10 "/>
+              <Image Source="canocima.png"
                      x:Name="imgcanocima"
                      HeightRequest="620"
                      WidthRequest="30"
                      Aspect="AspectFit"
                      HorizontalOptions="End"
                      VerticalOptions="Start"/>
-              <Image Source="canobaixo.jpg"
+              <Image Source="canobaixo.png"
                      x:Name="imgcanobaixo"
                      HeightRequest="620"
                      WidthRequest="0"
@@ -61,11 +66,28 @@
                             <Image Source="birdjump.png"
                                    HeightRequest="500"
                                    WidthRequest="250"
-                                   Grid.Row="1"/>
+                                   Grid.Row="0"/>
+                            <Frame Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center">
+                                   <Grid>
+                                          <Grid.ColumnDefinitions>
+                                                 <ColumnDefinition Width="*"/>
+                                                 <ColumnDefinition Width="*"/>
+                                          </Grid.ColumnDefinitions>
+                                   </Grid>
+                                   <Image Source="moedinha.png"
+                                          Grid.Column="0"/>
+                                   <Label Text="Você passou por 0 canos!"
+                                          x:Name="Score"
+                                           Grid.Column="1"/>
+                            </Frame>
                             <Image Source="taptojump.png"
                                    HeightRequest="200"
                                    WidthRequest="165"
                                    Grid.Row="2"/>
+
+
 
                      </Grid>
 

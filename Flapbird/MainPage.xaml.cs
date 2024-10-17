@@ -3,8 +3,9 @@
 public partial class MainPage : ContentPage
 {
 	const int gravidade = 5;
+	int Score = 0;
 	const int aberturaMinima = 200;
-	const int tempoEntreFrames = 25;
+	const int tempoEntreFrames = 20;
 	bool estaMorto = false;
 	double larguraJanela = 0;
 	double AlturaJanela = 0;
@@ -82,13 +83,16 @@ public partial class MainPage : ContentPage
 		imgcanobaixo.TranslationX -= velocidade;
 		if (imgcanobaixo.TranslationX < -larguraJanela)
 		{
-			imgcanobaixo.TranslationX = 4;
-			imgcanocima.TranslationX = 4;
+			imgcanobaixo.TranslationX = 0;
+			imgcanocima.TranslationX = 0;
 
 			var alturaMax = -100;
 			var alturaMin = -imgcanobaixo.HeightRequest;
 			imgcanocima.TranslationY = Random.Shared.Next((int)alturaMin, (int)alturaMax);
 			imgcanobaixo.TranslationY = imgcanocima.TranslationY + aberturaMinima + imgcanobaixo.HeightRequest;
+
+			Score ++;
+			LabelScore.Text = "Canos: " + Score.ToString("D3");
 		}
 
 
