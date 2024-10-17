@@ -4,7 +4,7 @@ public partial class MainPage : ContentPage
 {
 	const int gravidade = 5;
 	int Score = 0;
-	const int aberturaMinima = 200;
+	const int aberturaMinima = 50;
 	const int tempoEntreFrames = 20;
 	bool estaMorto = false;
 	double larguraJanela = 0;
@@ -62,6 +62,7 @@ public partial class MainPage : ContentPage
 		estaMorto = false;
 		Inicializar();
 		Desenha();
+		LabelCanos.Text = "Você passou por " + Score.ToString("D3") + " Canos!!";
 	}
 
 	void Inicializar()

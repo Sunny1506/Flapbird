@@ -20,15 +20,15 @@
                      Margin="10,10,10,10 "/>
               <Image Source="canocima.png"
                      x:Name="imgcanocima"
-                     HeightRequest="620"
-                     WidthRequest="30"
+                     HeightRequest="650"
+                     WidthRequest="50"
                      Aspect="AspectFit"
                      HorizontalOptions="End"
                      VerticalOptions="Start"/>
               <Image Source="canobaixo.png"
                      x:Name="imgcanobaixo"
-                     HeightRequest="620"
-                     WidthRequest="0"
+                     HeightRequest="650"
+                     WidthRequest="50"
                      Aspect="AspectFit"
                      HorizontalOptions="End"
                      VerticalOptions="End"/>
@@ -78,9 +78,9 @@
                                    </Grid>
                                    <Image Source="moedinha.png"
                                           Grid.Column="0"/>
-                                   <Label Text="Você passou por 0 canos!"
-                                          x:Name="Score"
-                                           Grid.Column="1"/>
+                                   <Label Text="Você passou por 000 Canos!!"
+                                          x:Name="LabelCanos"
+                                          Grid.Column="1"/>
                             </Frame>
                             <Image Source="taptojump.png"
                                    HeightRequest="200"
