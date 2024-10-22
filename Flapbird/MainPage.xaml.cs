@@ -67,7 +67,12 @@ public partial class MainPage : ContentPage
 
 	void Inicializar()
 	{
+		imgcanocima.TranslationX = -larguraJanela;
+		imgcanobaixo.TranslationX = -larguraJanela;
+		Passaro.TranslationX = 0;
 		Passaro.TranslationY = 0;
+		Score = 0;
+		GerenciaCanos();
 	}
 
 
@@ -92,7 +97,7 @@ public partial class MainPage : ContentPage
 			imgcanocima.TranslationY = Random.Shared.Next((int)alturaMin, (int)alturaMax);
 			imgcanobaixo.TranslationY = imgcanocima.TranslationY + aberturaMinima + imgcanobaixo.HeightRequest;
 
-			Score ++;
+			Score++;
 			LabelScore.Text = "Canos: " + Score.ToString("D3");
 		}
 
@@ -103,7 +108,9 @@ public partial class MainPage : ContentPage
 		if (!estaMorto)
 		{
 			if (VerificaColisaoTeto() ||
-			VerificaColisaoChao())
+			VerificaColisaoChao() || 
+			VerificaColisaoCanoCima() ||
+			VerificaColisaoCanoBaixo())
 			{
 				return true;
 			}
@@ -127,6 +134,37 @@ public partial class MainPage : ContentPage
 		else
 			return false;
 
+	}
+
+	bool VerificaColisaoCanoCima()
+	{
+		var posHPassaro = (larguraJanela / 2) - (Passaro.WidthRequest / 2);
+		var posVPassaro = (AlturaJanela / 2) - (Passaro.HeightRequest / 2) + Passaro.TranslationY;
+		if (posHPassaro >= Math.Abs(imgcanocima.TranslationX) - imgcanocima.WidthRequest &&
+		 posHPassaro <= Math.Abs(imgcanocima.TranslationX) + imgcanocima.WidthRequest &&
+		 posVPassaro <= imgcanocima.HeightRequest + imgcanocima.TranslationY)
+		 {
+			return true;
+		 }
+		 else 
+		 {
+			return false;
+		 }
+	}
+	bool VerificaColisaoCanoBaixo()
+	{
+		var posHPassaro = (larguraJanela / 2) - (Passaro.WidthRequest / 2);
+		var posVPassaro = (AlturaJanela / 2) - (Passaro.HeightRequest / 2) + Passaro.TranslationY;
+		if (posHPassaro >= Math.Abs(imgcanobaixo.TranslationX) - imgcanobaixo.WidthRequest &&
+		 posHPassaro <= Math.Abs(imgcanobaixo.TranslationX) + imgcanobaixo.WidthRequest &&
+		 posVPassaro <= imgcanobaixo.HeightRequest + imgcanobaixo.TranslationY)
+		 {
+			return true;
+		 }
+		 else 
+		 {
+			return false;
+		 }
 	}
 
 }

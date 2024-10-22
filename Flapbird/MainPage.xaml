@@ -13,12 +13,13 @@
                      Aspect="AspectFill"
                      HorizontalOptions="Fill"
                      VerticalOptions="Fill"/>
-              <Label Text="Canos:001"
+              <Label Text="Canos:000"
                      x:Name="LabelScore"
                      HorizontalOptions="End"
                      VerticalOptions="Start"
                      Margin="10,10,10,10 "/>
               <Image Source="canocima.png"
+                     BackgroundColor="Blue"
                      x:Name="imgcanocima"
                      HeightRequest="650"
                      WidthRequest="50"
@@ -26,6 +27,7 @@
                      HorizontalOptions="End"
                      VerticalOptions="Start"/>
               <Image Source="canobaixo.png"
+                     BackgroundColor="Red"
                      x:Name="imgcanobaixo"
                      HeightRequest="650"
                      WidthRequest="50"
@@ -33,11 +35,11 @@
                      HorizontalOptions="End"
                      VerticalOptions="End"/>
               <Image Source="passaro.png"
+                     BackgroundColor="Red"
                      x:Name="Passaro"
-                     HeightRequest="110"
+                     HeightRequest="80"
                      WidthRequest="80"
-                     Margin="30,0,0,0"
-                     HorizontalOptions="Start"
+                     HorizontalOptions="Center"
                      VerticalOptions="Center"/>
               <Image Source="chao.jpg"
                      x:Name="chao"
@@ -78,7 +80,7 @@
                                    </Grid>
                                    <Image Source="moedinha.png"
                                           Grid.Column="0"/>
-                                   <Label Text="Você passou por 000 Canos!!"
+                                   <Label Text="Você passou por 001 Canos!!"
                                           x:Name="LabelCanos"
                                           Grid.Column="1"/>
                             </Frame>
