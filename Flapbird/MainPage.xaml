@@ -19,7 +19,6 @@
                      VerticalOptions="Start"
                      Margin="10,10,10,10 "/>
               <Image Source="canocima.png"
-                     BackgroundColor="Blue"
                      x:Name="imgcanocima"
                      HeightRequest="650"
                      WidthRequest="50"
@@ -27,7 +26,6 @@
                      HorizontalOptions="End"
                      VerticalOptions="Start"/>
               <Image Source="canobaixo.png"
-                     BackgroundColor="Red"
                      x:Name="imgcanobaixo"
                      HeightRequest="650"
                      WidthRequest="50"
@@ -35,10 +33,9 @@
                      HorizontalOptions="End"
                      VerticalOptions="End"/>
               <Image Source="passaro.png"
-                     BackgroundColor="Red"
                      x:Name="Passaro"
-                     HeightRequest="80"
-                     WidthRequest="80"
+                     HeightRequest="60"
+                     WidthRequest="60"
                      HorizontalOptions="Center"
                      VerticalOptions="Center"/>
               <Image Source="chao.jpg"

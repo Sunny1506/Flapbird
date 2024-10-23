@@ -1,10 +1,12 @@
-﻿namespace Flapbird;
+﻿using Plugin.Maui.Audio;
+
+namespace Flapbird;
 
 public partial class MainPage : ContentPage
 {
 	const int gravidade = 5;
 	int Score = 0;
-	const int aberturaMinima = 50;
+	const int aberturaMinima = 100;
 	const int tempoEntreFrames = 20;
 	bool estaMorto = false;
 	double larguraJanela = 0;
@@ -34,6 +36,8 @@ public partial class MainPage : ContentPage
 			GerenciaCanos();
 			if (VerificaColisao())
 			{
+				var audioPlayer = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("morte.wav"));
+				audioPlayer.Play();
 				estaMorto = true;
 				FrameGameOver.IsVisible = true;
 				break;
@@ -56,13 +60,16 @@ public partial class MainPage : ContentPage
 		EstaPulando = true;
 	}
 
-	void Oi(object s, TappedEventArgs e)
+	async void Oi(object s, TappedEventArgs e)
 	{
+		
 		FrameGameOver.IsVisible = false;
 		estaMorto = false;
 		Inicializar();
 		Desenha();
 		LabelCanos.Text = "Você passou por " + Score.ToString("D3") + " Canos!!";
+		var audioPlayer = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("song.wav"));
+		audioPlayer.Play();
 	}
 
 	void Inicializar()
@@ -99,30 +106,30 @@ public partial class MainPage : ContentPage
 
 			Score++;
 			LabelScore.Text = "Canos: " + Score.ToString("D3");
+			if (Score % 2 == 0)
+				velocidade++;
+
 		}
 
 
 	}
 	bool VerificaColisao()
 	{
-		if (!estaMorto)
-		{
-			if (VerificaColisaoTeto() ||
-			VerificaColisaoChao() || 
-			VerificaColisaoCanoCima() ||
-			VerificaColisaoCanoBaixo())
-			{
-				return true;
-			}
 
-		}
-		return false;
+		return VerificaColisaoTeto() ||
+		   VerificaColisaoChao() ||
+		   VerificaColisaoCanoCima() ||
+		   VerificaColisaoCanoBaixo();
+
 	}
+
+
 	bool VerificaColisaoTeto()
 	{
 		var minY = -AlturaJanela / 2;
 		if (Passaro.TranslationY <= minY)
 			return true;
+
 		else
 			return false;
 	}
@@ -143,28 +150,29 @@ public partial class MainPage : ContentPage
 		if (posHPassaro >= Math.Abs(imgcanocima.TranslationX) - imgcanocima.WidthRequest &&
 		 posHPassaro <= Math.Abs(imgcanocima.TranslationX) + imgcanocima.WidthRequest &&
 		 posVPassaro <= imgcanocima.HeightRequest + imgcanocima.TranslationY)
-		 {
+		{
 			return true;
-		 }
-		 else 
-		 {
+		}
+		else
+		{
 			return false;
-		 }
+		}
 	}
 	bool VerificaColisaoCanoBaixo()
 	{
 		var posHPassaro = (larguraJanela / 2) - (Passaro.WidthRequest / 2);
 		var posVPassaro = (AlturaJanela / 2) - (Passaro.HeightRequest / 2) + Passaro.TranslationY;
+		var yMaxCano = imgcanocima.HeightRequest + imgcanocima.TranslationY + aberturaMinima;
 		if (posHPassaro >= Math.Abs(imgcanobaixo.TranslationX) - imgcanobaixo.WidthRequest &&
 		 posHPassaro <= Math.Abs(imgcanobaixo.TranslationX) + imgcanobaixo.WidthRequest &&
-		 posVPassaro <= imgcanobaixo.HeightRequest + imgcanobaixo.TranslationY)
-		 {
+		 posVPassaro >= yMaxCano)
+		{
 			return true;
-		 }
-		 else 
-		 {
+		}
+		else
+		{
 			return false;
-		 }
+		}
 	}
 
 }
