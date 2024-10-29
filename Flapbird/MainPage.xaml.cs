@@ -25,7 +25,12 @@ public partial class MainPage : ContentPage
 	{
 		Passaro.TranslationY += gravidade;
 	}
-	public async void Desenha()
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+		SoundHelper.Play("song.wav", true);
+    }
+    public async void Desenha()
 	{
 		while (!estaMorto)
 		{
@@ -36,9 +41,9 @@ public partial class MainPage : ContentPage
 			GerenciaCanos();
 			if (VerificaColisao())
 			{
-				var audioPlayer = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("morte.wav"));
-				audioPlayer.Play();
+
 				estaMorto = true;
+				SoundHelper.Play("morte.wav");
 				FrameGameOver.IsVisible = true;
 				break;
 			}
@@ -62,14 +67,13 @@ public partial class MainPage : ContentPage
 
 	async void Oi(object s, TappedEventArgs e)
 	{
-		
+
 		FrameGameOver.IsVisible = false;
 		estaMorto = false;
 		Inicializar();
 		Desenha();
+		SoundHelper.Play("song.wav");
 		LabelCanos.Text = "Você passou por " + Score.ToString("D3") + " Canos!!";
-		var audioPlayer = AudioManager.Current.CreatePlayer(await FileSystem.OpenAppPackageFileAsync("song.wav"));
-		audioPlayer.Play();
 	}
 
 	void Inicializar()
@@ -105,6 +109,7 @@ public partial class MainPage : ContentPage
 			imgcanobaixo.TranslationY = imgcanocima.TranslationY + aberturaMinima + imgcanobaixo.HeightRequest;
 
 			Score++;
+			SoundHelper.Play("win.wav");
 			LabelScore.Text = "Canos: " + Score.ToString("D3");
 			if (Score % 2 == 0)
 				velocidade++;
