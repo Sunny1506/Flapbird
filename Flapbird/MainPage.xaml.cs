@@ -72,7 +72,6 @@ public partial class MainPage : ContentPage
 		estaMorto = false;
 		Inicializar();
 		Desenha();
-		SoundHelper.Play("song.wav");
 		LabelCanos.Text = "Você passou por " + Score.ToString("D3") + " Canos!!";
 	}
 
